@@ -59,14 +59,21 @@
     <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />
-    <Compile Include="Assets\Scripts\CharController.cs" />
+    <Compile Include="Assets\myScripts\CharController.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
+    <Compile Include="Assets\myScripts\PlayerScript.cs" />
+    <Compile Include="Assets\myScripts\HealthBar.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
-    <Compile Include="Assets\Scripts\PlayerFollow.cs" />
-    <Compile Include="Assets\Scripts\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\PlayerScript.cs" />
+    <Compile Include="Assets\myScripts\PlayerFollow.cs" />
+    <Compile Include="Assets\myScripts\myAIs\FollowTarget.cs" />
+    <Compile Include="Assets\myScripts\myAIs\spawn.cs" />
+    <Compile Include="Assets\myScripts\myAIs\AIStopAttacking.cs" />
+    <Compile Include="Assets\myScripts\myAIs\Patrol.cs" />
+    <Compile Include="Assets\myScripts\myAIs\spawnAtFivePoints.cs" />
+    <Compile Include="Assets\myScripts\PlayerHitbox.cs" />
+    <Compile Include="Assets\myScripts\Blackout.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
