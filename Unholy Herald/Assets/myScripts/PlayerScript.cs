@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -38,10 +39,16 @@ public class PlayerScript : MonoBehaviour
     {
         StartCoroutine(blackout.FadeBlackOutSquare());
         Invoke("deathScreen", 1);
+        Invoke("backToMenu", 3);
     }
 
     private void deathScreen ()
     {
         deathscreen.enabled = true;
+    }
+
+    private void backToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
