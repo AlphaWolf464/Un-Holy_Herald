@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+    private bool playerAlive;
 
     public HealthBar healthBar;
     public Text deathscreen;
@@ -18,13 +19,15 @@ public class PlayerScript : MonoBehaviour
         deathscreen.enabled = false;
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        playerAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth <= 0)
+        if (currentHealth <= 0 && playerAlive == true)
         {
+            playerAlive = false;
             avatarDeath();
         }
     }
