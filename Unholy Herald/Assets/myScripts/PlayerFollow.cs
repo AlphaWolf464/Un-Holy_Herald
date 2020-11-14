@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFollow : MonoBehaviour
+public class PlayerFollow : MonoBehaviour //When placed on the main chamera, makes the main camera move to follow the player's possition
 {
     public Transform PlayerTransform; //takes the player avatar
 

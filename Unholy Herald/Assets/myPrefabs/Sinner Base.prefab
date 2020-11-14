@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.2}
-  m_SizeDelta: {x: 103.40279, y: 34.611626}
+  m_SizeDelta: {x: 96.15622, y: 8.630989}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &596572397
 Canvas:
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -348,7 +348,7 @@ BoxCollider:
   m_GameObject: {fileID: 2489883178188049049}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.08761184, y: 0.16763067, z: 0.05400945}
   m_Center: {x: -0.0012164116, y: 0.08208923, z: 0.0110661145}
@@ -359,14 +359,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2489883178188049049}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17b14c47bf322d645ab4331661ca7c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 3
   healthBar: {fileID: 743988638}
---- !u!65 &5370416597923827164
+--- !u!65 &7787455686007712422
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,6 +379,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08761184, y: 0.16763067, z: 0.05400945}
   m_Center: {x: -0.0012164116, y: 0.08208923, z: 0.0110661145}
+--- !u!114 &1995372751249445246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3065770136798135693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b14c47bf322d645ab4331661ca7c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 3
+  healthBar: {fileID: 743988638}
 --- !u!114 &2186474036208511359
 MonoBehaviour:
   m_ObjectHideFlags: 0

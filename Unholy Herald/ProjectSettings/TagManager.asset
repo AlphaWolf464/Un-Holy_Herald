@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Hitbox
+  - PlayerAura
   layers:
   - Default
   - TransparentFX

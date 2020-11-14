@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour //Makes the main menu gameobject in the menu scene, manages the main menu
 {
     public void PlayGame()
     {

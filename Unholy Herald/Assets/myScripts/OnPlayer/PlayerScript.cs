@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour //When placed on the player, manages the player's healthbar and death
 {
     public int maxHealth = 100;
     public int currentHealth;

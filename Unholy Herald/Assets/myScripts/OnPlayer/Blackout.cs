@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Blackout : MonoBehaviour
+public class Blackout : MonoBehaviour //When placed on the player, manages the fading of the endscreen
 {
     public GameObject blackOutSquare;
 

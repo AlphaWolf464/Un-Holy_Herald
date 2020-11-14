@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharController : MonoBehaviour
+public class CharController : MonoBehaviour //When placed on the player, makes sure that the player can walk normaly with WASD in an isometric enviorment
 {
     //if you want to understand how this code works, go see the video link posted in the "Un-Holy Herald Team" discord
     //under the #assets channel at 11/10/2020

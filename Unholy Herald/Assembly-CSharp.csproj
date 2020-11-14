@@ -60,13 +60,16 @@
     <Compile Include="Assets\myScripts\myAIs\FollowTarget.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\myScripts\myAIs\spawn.cs" />
+    <Compile Include="Assets\myScripts\OnEnemy\uiFaceCam.cs" />
     <Compile Include="Assets\myScripts\myAIs\AIStopAttacking.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\PlayerHitbox.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\CharController.cs" />
+    <Compile Include="Assets\myScripts\OnEnemy\EnemyHealthBar.cs" />
     <Compile Include="Assets\myScripts\myAIs\Patrol.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\PlayerScript.cs" />
+    <Compile Include="Assets\myScripts\OnEnemy\EnemyAttack.cs" />
     <Compile Include="Assets\myScripts\HealthBar.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\myScripts\myAIs\spawnAtFivePoints.cs" />
@@ -75,9 +78,6 @@
     <Compile Include="Assets\myScripts\PlayerFollow.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\Blackout.cs" />
     <Compile Include="Assets\myScripts\MainMenu.cs" />
-    <Compile Include="Assets\myScripts\EnemyAttack.cs" />
-    <Compile Include="Assets\myScripts\uiFaceCam.cs" />
-    <Compile Include="Assets\myScripts\EnemyHealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
