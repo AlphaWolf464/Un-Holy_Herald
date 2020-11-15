@@ -7,7 +7,7 @@ public class BasicAttackScript : MonoBehaviour //When placed on an enemy, summon
 {   
     public Collider attackZone;
     public Text attackEffect;
-    public string foeTag; //Enemies take "PlayerAura" and player takes "Foe
+    public string foeTag; //Enemies take "Player" and Player takes "Foe"
     public float attackCooldown = 2;
     private bool cooldownActive;
 

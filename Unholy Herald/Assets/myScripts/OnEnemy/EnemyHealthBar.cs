@@ -34,7 +34,7 @@ public class EnemyHealthBar : MonoBehaviour //When placed on an enemy, manages t
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerAura"))
+        if (other.CompareTag("PlayerAttack"))
         {
             Damage(1);
         }
