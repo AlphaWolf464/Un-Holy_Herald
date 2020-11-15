@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - PlayerAura
+  - PlayerAttack
+  - Damage
+  - Foe
   layers:
   - Default
   - TransparentFX
