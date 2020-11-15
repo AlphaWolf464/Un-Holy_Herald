@@ -69,7 +69,7 @@
     <Compile Include="Assets\myScripts\myAIs\Patrol.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\PlayerScript.cs" />
-    <Compile Include="Assets\myScripts\OnEnemy\EnemyAttack.cs" />
+    <Compile Include="Assets\myScripts\BasicAttackScript.cs" />
     <Compile Include="Assets\myScripts\HealthBar.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\myScripts\myAIs\spawnAtFivePoints.cs" />
