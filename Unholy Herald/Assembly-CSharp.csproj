@@ -78,7 +78,8 @@
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\myScripts\CameraToPlayerFollowScript.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\UIBlackoutScript.cs" />
-    <Compile Include="Assets\myScripts\MainMenu.cs" />
+    <Compile Include="Assets\myScripts\MainMenuScript.cs" />
+    <Compile Include="Assets\myScripts\PauseMenuScript.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

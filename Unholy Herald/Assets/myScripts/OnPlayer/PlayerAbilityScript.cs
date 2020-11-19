@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerAbilityScript : MonoBehaviour //When placed on player, manages attacks and abilites
 {
+    [HideInInspector] public bool isAuraOn;             //bool that notes if the aura is active
     public Collider auraAttackZone;                     //takes a collider that surrounds the player
     public Text auraAttackEffect;                       //takes a text object to be used as a visual indicator of 'auraAttackZone'
     public float auraAttackCooldown = 0.5f;             //takes a float that will determien the time between activations of 'auraAttack'
     [HideInInspector] public bool auraCooldownActive;   //bool that will help make the cooldown effective
     private float auraAttackDurration = 0.2f;           //float that determines the length of attack of 'auraAttack'
 
+    [HideInInspector] public bool isBeamOn;             //bool that notes if the beam is active
     public Collider beamAttackZone;                     //takes a collider that streches out in front of the player
     public Text beamAttackEffect;                       //takes a text object to be used as a visual indicator of 'beamAttackZone'
     public float beamAttackCooldown = 2f;               //takes a float that will determien the time between activations of 'beamAttack'
@@ -48,14 +50,14 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
         {
             auraAttack();                                                                               //activates the aura attack
             Invoke("auraAttackOff", auraAttackDurration);                                               //turns off the aura attack after the perscribed attack duration
-            Invoke("auraCooldown", auraAttackCooldown);                                                 //puts the aura attack off cooldown after perscribed cooldown length
+            Invoke("auraCooldown", auraAttackDurration + auraAttackCooldown);                           //puts the aura attack off cooldown after perscribed cooldown length
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha1) && beamCooldownActive == false && isShieldOn == false)     //triggers if '1' is pressed while the beam attack is off cooldown and the shield is down
         {
             beamAttack();                                                                               //activates the beam attack
             Invoke("beamAttackOff", beamAttackDurration);                                               //turns off the beam attack after the perscribed attack durration
-            Invoke("beamCooldown", beamAttackCooldown);                                                 //puts the beam attack off cooldown after perscribed cooldown duration
+            Invoke("beamCooldown", beamAttackDurration + beamAttackCooldown);                           //puts the beam attack off cooldown after perscribed cooldown duration
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && shieldCooldownActive == false && isShieldOn == false)   //triggers if '2' is pressed while the shield is off cooldown and is down
         {
@@ -72,13 +74,15 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
 
     private void auraAttack()                               //changes proper bools so aura attack starts
     {
-        auraCooldownActive = true;
+        isAuraOn = true;
         auraAttackZone.enabled = true;
         auraAttackEffect.enabled = true;
     }
 
     private void auraAttackOff()                            //changes proper bools so aura attack ends
     {
+        auraCooldownActive = true;
+        isAuraOn = false;
         auraAttackZone.enabled = false;
         auraAttackEffect.enabled = false;
     }
@@ -90,13 +94,16 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
 
     private void beamAttack()                               //changes proper bools so beam attack starts
     {
-        beamCooldownActive = true;
+        isBeamOn = true;
+
         beamAttackZone.enabled = true;
         beamAttackEffect.enabled = true;
     }
 
     private void beamAttackOff()                            //changes proper bools so beam attack ends
     {
+        beamCooldownActive = true;
+        isBeamOn = false;
         beamAttackZone.enabled = false;
         beamAttackEffect.enabled = false;
     }
