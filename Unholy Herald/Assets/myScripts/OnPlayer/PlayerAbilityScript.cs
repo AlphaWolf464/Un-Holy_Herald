@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerAbilityScript : MonoBehaviour //When placed on player, manages attacks and abilites
 {
+    public UIHealthbarScript healthBar;                 //takes a script which provides functions to manage healthbar sliders
+    public PlayerUIScript PlayerUI;                     //takes a script which provides vraibles to manage healthbar sliders
+
+    public KeyCode MeleeAbilityKey = KeyCode.Space;
+    public KeyCode BeamAbilityKey = KeyCode.Mouse0;                     
+    public KeyCode ShieldAbilityKey = KeyCode.Mouse1;
+    
     [HideInInspector] public bool isAuraOn;             //bool that notes if the aura is active
     public Collider auraAttackZone;                     //takes a collider that surrounds the player
     public Text auraAttackEffect;                       //takes a text object to be used as a visual indicator of 'auraAttackZone'
@@ -23,7 +30,7 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
     public Text shieldEffect;                           //takes a text object  to be used as a visual indicator of 'shieldUp'
     public float shieldCooldown = 5f;                   //takes a float that will determien the time between activations of 'shieldUp'
     [HideInInspector] public bool shieldCooldownActive; //bool that will help make the cooldown effective
-    public float shieldDurration = 2f;                  //takes a float that determines the length of uptime for 'shieldUp'
+    public float shieldDurration = 4f;                  //takes a float that determines the length of uptime for 'shieldUp'
 
     void Start()                                        //initilizes all above variables to their prefered start condition
     {
@@ -46,20 +53,20 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && auraCooldownActive == false && isShieldOn == false)      //triggers if 'Space' is pressed while the aura attack is off cooldown and the shield is down
+        if (Input.GetKeyDown(MeleeAbilityKey) && auraCooldownActive == false && isShieldOn == false)      //triggers if 'Space' is pressed while the aura attack is off cooldown and the shield is down
         {
             auraAttack();                                                                               //activates the aura attack
             Invoke("auraAttackOff", auraAttackDurration);                                               //turns off the aura attack after the perscribed attack duration
             Invoke("auraCooldown", auraAttackDurration + auraAttackCooldown);                           //puts the aura attack off cooldown after perscribed cooldown length
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1) && beamCooldownActive == false && isShieldOn == false)     //triggers if '1' is pressed while the beam attack is off cooldown and the shield is down
+        if (Input.GetKeyDown(BeamAbilityKey) && beamCooldownActive == false && isShieldOn == false)     //triggers if '1' is pressed while the beam attack is off cooldown and the shield is down
         {
             beamAttack();                                                                               //activates the beam attack
             Invoke("beamAttackOff", beamAttackDurration);                                               //turns off the beam attack after the perscribed attack durration
             Invoke("beamCooldown", beamAttackDurration + beamAttackCooldown);                           //puts the beam attack off cooldown after perscribed cooldown duration
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && shieldCooldownActive == false && isShieldOn == false)   //triggers if '2' is pressed while the shield is off cooldown and is down
+        if (Input.GetKeyDown(ShieldAbilityKey) && shieldCooldownActive == false && isShieldOn == false)   //triggers if '2' is pressed while the shield is off cooldown and is down
         {
             shieldUp();                                                                                 //actives the shield
             Invoke("shieldDown", shieldDurration);                                                      //turns off the shield after the perscribed shield durration
@@ -95,7 +102,6 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
     private void beamAttack()                               //changes proper bools so beam attack starts
     {
         isBeamOn = true;
-
         beamAttackZone.enabled = true;
         beamAttackEffect.enabled = true;
     }
@@ -113,16 +119,22 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
         beamCooldownActive = false;
     }
 
-    private void shieldUp()                                 //changes proper bools so shield is activated and can block damage & ability activations
+    private void shieldUp()                                 //runs proper functions to set up a player shield
     {
         isShieldOn = true;
+        healthBar.shieldHealth.transform.gameObject.SetActive(true);
+        healthBar.SetMaxShieldHealth(PlayerUI.maxHealth / 2);
+        healthBar.SetShieldHealthToMax();
+        PlayerUI.currentShieldHealth = healthBar.shieldHealth.value;
         shieldEffect.enabled = true;
     }
 
-    private void shieldDown()                               //changes proper bools so shield is deactivated and no longer blocks damage & abiility activations
+    public void shieldDown()                               //runs proper functions so player shield is deactivated
     {
         shieldCooldownActive = true;
         isShieldOn = false;
+        healthBar.shieldHealth.transform.gameObject.SetActive(false);
+        healthBar.ShieldDamageSpillover(PlayerUI.currentShieldHealth);
         shieldEffect.enabled = false;
     }
 

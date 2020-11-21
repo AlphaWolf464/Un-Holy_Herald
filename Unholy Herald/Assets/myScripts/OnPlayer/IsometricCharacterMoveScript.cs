@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsometricCharacterMoveScript : MonoBehaviour //When placed on the player, makes sure that the player can walk normaly with WASD in an isometric enviorment
+public class IsometricCharacterMoveScript : MonoBehaviour //When placed on the player parent, makes sure that the player can walk normaly with WASD in an isometric enviorment
 {
-    //if you want to understand how this code works, go see the video link posted in the "Un-Holy Herald Team" discord
-    //under the #assets channel at 11/10/2020
+    //if you want to understand how this code works, go see the video link in the "Un-Holy Herald Team" discord
+    //under the #assets channel, posted at 11/10/2020
     [SerializeField]
-    public float moveSpeed = 4f;
+    public float moveSpeed = 5f;
 
     Vector3 forward, right;
     void Start()
@@ -21,7 +21,7 @@ public class IsometricCharacterMoveScript : MonoBehaviour //When placed on the p
 
     void Update()
     {
-        if(Input.anyKey)
+        if(WASDkeyDown())
         {
             Move();
         }
@@ -38,5 +38,17 @@ public class IsometricCharacterMoveScript : MonoBehaviour //When placed on the p
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
+    }
+
+    bool WASDkeyDown()
+    {
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }

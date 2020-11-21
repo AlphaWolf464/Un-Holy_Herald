@@ -11,80 +11,157 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     public PlayerAbilityScript ability;     //takes the script that provides functions and variables for managing abilites
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
-    private int currentHealth;              //int that tracks player's current health
+    private float currentPlayerHealth;      //int that tracks player's current health
+    [HideInInspector] public float currentShieldHealth;//float that tracks player shield's current health
     private bool playerAlive;               //bool that tracks if the player is alive or dead
-
+    
     public Text deathscreen;                //takes the text that is used in the deathscreen
+    private bool isWriting;                 //bool that notes if deathscreen writing is actve
+    private string deathscreenMessage;      //string that contains the message printed on the deathscreen
+    private int characterIndex;             //int that helps manage deathscreen printing
+    private float timer;                    //float that helps manage deathscreen printing speed
+    private float writingSpeed;             //float that determies deathscreen printing speed
 
     public Image auraIconImage;             //takes the image of the aura icon
-    public Text auraIconName;               //takes the name text of the aura icon
-    public Text auraIconKey;                //takes the key text of the aura icon
-    public Text auraIconCooldown;           //takes the cooldown text of the aura icon
+    private Text auraIconName;              //set to the name text of the aura icon
+    private Text auraIconKey;               //set to the key text of the aura icon
+    private Text auraIconCooldown;          //set to the cooldown text of the aura icon
 
     public Image beamIconImage;             //takes the image of the beam icon
-    public Text beamIconName;               //takes the name text of the beam icon
-    public Text beamIconKey;                //takes the key text of the beam icon
-    public Text beamIconCooldown;           //takes the cooldown text of the beam icon
+    private Text beamIconName;              //set to the name text of the beam icon
+    private Text beamIconKey;               //set to the key text of the beam icon
+    private Text beamIconCooldown;          //set to the cooldown text of the beam icon
 
     public Image shieldIconImage;           //takes the image of the shield icon
-    public Text shieldIconName;             //takes the name text of the shield icon
-    public Text shieldIconKey;              //takes the key text of the shield icon
-    public Text shieldIconCooldown;         //takes the cooldown text of the shield icon
+    private Text shieldIconName;            //set to the name text of the shield icon
+    private Text shieldIconKey;             //set to the key text of the shield icon
+    private Text shieldIconCooldown;        //set to the cooldown text of the shield icon
 
     void Start()                            //sets all above vairables to their prefered start settings
     {
+        Time.timeScale = 1f;
+
         deathscreen.enabled = false;
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        deathscreen.text = "";
+        isWriting = false;
+        deathscreenMessage = "Your avatar has died...\n You have failed the Lord";
+        writingSpeed = 0.1f;
+
+        currentPlayerHealth = maxHealth;
+        healthBar.SetMaxPlayerHealth(maxHealth);
+        healthBar.SetPlayerHealthToMax();
+        healthBar.shieldHealth.transform.gameObject.SetActive(false);
         playerAlive = true;
+
+        auraIconName = auraIconImage.transform.GetChild(0).GetComponent<Text>();
+        auraIconKey = auraIconImage.transform.GetChild(1).GetComponent<Text>();
+        auraIconCooldown = auraIconImage.transform.GetChild(2).GetComponent<Text>();
+
+        beamIconName = beamIconImage.transform.GetChild(0).GetComponent<Text>();
+        beamIconKey = beamIconImage.transform.GetChild(1).GetComponent<Text>();
+        beamIconCooldown = beamIconImage.transform.GetChild(2).GetComponent<Text>();
+
+        shieldIconName = shieldIconImage.transform.GetChild(0).GetComponent<Text>();
+        shieldIconKey = shieldIconImage.transform.GetChild(1).GetComponent<Text>();
+        shieldIconCooldown = shieldIconImage.transform.GetChild(2).GetComponent<Text>();
 
         SetNormalAbilityIconColor(auraIconImage);
         SetNameText(auraIconName, "Melee");
-        SetKeyText(auraIconKey, "Space");
+        SetKeyText(auraIconKey, ability.MeleeAbilityKey);
         SetCooldownText(auraIconCooldown, ability.auraAttackCooldown);
 
         SetNormalAbilityIconColor(beamIconImage);
         SetNameText(beamIconName, "Beam Attack");
-        SetKeyText(beamIconKey, "1");
+        SetKeyText(beamIconKey, ability.BeamAbilityKey);
         SetCooldownText(beamIconCooldown, ability.beamAttackCooldown);
 
         SetNormalAbilityIconColor(shieldIconImage);
         SetNameText(shieldIconName, "Holy Shield");
-        SetKeyText(shieldIconKey, "2");
+        SetKeyText(shieldIconKey, ability.ShieldAbilityKey);
         SetCooldownText(shieldIconCooldown, ability.shieldCooldown);
     }
-
+    
     void Update()
     {
-        if (currentHealth <= 0 && playerAlive == true)      //runs proper functions when player dies
+        if (currentPlayerHealth <= 0 && playerAlive == true)      //runs proper functions when player dies
         {
             playerAlive = false;
             avatarDeath();
         }
+        if (currentShieldHealth <=0 && ability.isShieldOn == true)//runs proper functions when shield is overwhelmed
+        {
+            ability.shieldDown();
+        }
 
         CheckAuraIcon(ability, auraIconImage);              //changes aura icon image to the current proper color
-
         CheckBeamIcon(ability, beamIconImage);              //changes beam icon image to the current proper color
-
         CheckShieldIcon(ability, shieldIconImage);          //changes shield icon image to the current proper color
+
+        CheckTextWriter();                                  //types out a deathscreen message when 'isWriting` is true
     }
 
-    public void takeDamage(int damage)                      //deducts proper amount damage from player healthbar UI
+    public void takeDamage(float damage)                      //deducts proper amount damage from player healthbar UIs
     {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        if (ability.isShieldOn)
+        {
+            currentShieldHealth -= damage;
+            healthBar.SetShieldHealth(currentShieldHealth);
+        }
+        else
+        {
+            currentPlayerHealth -= damage;
+            healthBar.SetPlayerHealth(currentPlayerHealth);
+        }
     }
 
     private void avatarDeath()                              //runs proper fuctions to simulate player death
     {
         StartCoroutine(blackout.FadeBlackOutSquare());
         Invoke("deathScreen", 1);
-        Invoke("backToMenu", 3);
     }
 
     private void deathScreen ()                             //enables deathscreen text
     {
         deathscreen.enabled = true;
+        SetTextWriter(deathscreen, deathscreenMessage, writingSpeed);
+    }
+
+    private void SetTextWriter(Text iuText, string text, float timePerCharacter)//sets varriables to proper setting for CheckTextWriter to work properly 
+    {
+        isWriting = true;
+        deathscreenMessage = text + " ";
+        characterIndex = 0;
+        timer = 0f;
+        writingSpeed = timePerCharacter;
+    }
+
+    private void CheckTextWriter()                          //runs proper functions to print out a deathscreen message when `isWriting` is true
+    {
+        if(isWriting)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                if (deathscreenMessage[characterIndex] == '.' || deathscreenMessage[characterIndex + 1] == '.')
+                {
+                    timer += 0.7f;
+                }
+                else
+                {
+                    timer += writingSpeed;
+                }
+
+                characterIndex++;
+                deathscreen.text = deathscreenMessage.Substring(0, characterIndex);
+
+                if (characterIndex >= deathscreenMessage.Length - 1)
+                {
+                    isWriting = false;
+                    Invoke("backToMenu", 2);
+                    return;
+                }
+            }
+        }
     }
 
     private void backToMenu()                               //returns to the main menu scene
@@ -111,7 +188,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         target.text = name;
     }
 
-    private void SetKeyText(Text target, string key)        //sets 'target' text to proper icon fromat of 'key'
+    private void SetKeyText(Text target, KeyCode key)        //sets 'target' text to proper icon fromat of 'key'
     {
         target.text = "Key: [" + key + "]";
     }
