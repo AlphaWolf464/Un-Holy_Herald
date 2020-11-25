@@ -367,38 +367,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.049473744, y: 0.06987769, z: 0.026401829}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &6419538270406215182
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6162025106663460748}
-  m_Layer: 0
-  m_Name: Player Attacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6162025106663460748
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6419538270406215182}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1217414834319056407}
-  - {fileID: 2671607433427799255}
-  m_Father: {fileID: 6796511746842279587}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1867172185
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -466,11 +434,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9abca7068cd28479b8dad1e422d5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
   healthBar: {fileID: 0}
-  deathscreen: {fileID: 0}
   blackout: {fileID: 0}
+  ability: {fileID: 0}
+  maxHealth: 100
+  currentShieldHealth: 0
+  deathscreen: {fileID: 0}
+  auraIconImage: {fileID: 0}
+  beamIconImage: {fileID: 0}
+  shieldIconImage: {fileID: 0}
 --- !u!114 &2534295109156646166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,16 +455,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a425cb810d9b7064c823459c49824505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  PlayerUI: {fileID: 0}
+  MeleeAbilityKey: 32
+  BeamAbilityKey: 323
+  ShieldAbilityKey: 324
+  isAuraOn: 0
   auraAttackZone: {fileID: 1288898289743603117}
   auraAttackEffect: {fileID: 2648273274871682718}
   auraAttackCooldown: 0.5
+  auraCooldownActive: 0
+  isBeamOn: 0
   beamAttackZone: {fileID: 1935424042916072635}
   beamAttackEffect: {fileID: 7186904397752757508}
   beamAttackCooldown: 2
+  beamCooldownActive: 0
   isShieldOn: 0
   shieldEffect: {fileID: 8915609039538154693}
   shieldCooldown: 5
-  shieldDurration: 2
+  shieldCooldownActive: 0
+  shieldDurration: 4
 --- !u!114 &5534100848611143774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +488,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1867172188}
-  abilities: {fileID: 2534295109156646166}
+--- !u!1 &6419538270406215182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6162025106663460748}
+  m_Layer: 0
+  m_Name: Player Attacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6162025106663460748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6419538270406215182}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1217414834319056407}
+  - {fileID: 2671607433427799255}
+  m_Father: {fileID: 6796511746842279587}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8685611343112722569
 GameObject:
   m_ObjectHideFlags: 0

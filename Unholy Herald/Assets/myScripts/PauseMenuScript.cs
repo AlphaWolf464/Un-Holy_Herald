@@ -6,13 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    private PlayerFaceMouseScript turnTo;
+    private PlayerAbilityScript ability;
+
     public GameObject pauseMenu;
+    private GameObject storyScreen;
     private bool isPaused;
 
     private void Start()
     {
+        turnTo = GameObject.FindWithTag("Player").GetComponent(typeof(PlayerFaceMouseScript)) as PlayerFaceMouseScript;
+        ability = GameObject.FindWithTag("Player").GetComponent(typeof(PlayerAbilityScript)) as PlayerAbilityScript;
+
+        storyScreen = pauseMenu.transform.GetChild(2).gameObject;
+
         isPaused = false;
         pauseMenu.SetActive(false);
+        storyScreen.SetActive(false);
     }
 
     private void Update()
@@ -35,6 +45,8 @@ public class PauseMenuScript : MonoBehaviour
         isPaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        turnTo.enabled = false;
+        ability.enabled = false;
     }
 
     public void ResumeGame()
@@ -42,6 +54,8 @@ public class PauseMenuScript : MonoBehaviour
         isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        turnTo.enabled = true;
+        ability.enabled = true;
     }
 
     public void RetrunToMainMenu()
