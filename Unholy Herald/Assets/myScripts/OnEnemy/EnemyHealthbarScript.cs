@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealthbarScript : MonoBehaviour //When placed on an enemy, manages their healthbar as well as checking to see if damage has been taken
+public class EnemyHealthbarScript : MonoBehaviour //When placed on an enemy, manages their healthbar, checks tosee if damage has been taken, and reports death to the parent
 {
     public float currentHealth = 3;
     public Image healthBar;
     public float totalHealth;
+    private GameObject parentObject;
 
     private void Start()
     {
         totalHealth = currentHealth;
-
+        parentObject = transform.parent.transform.gameObject;
     }
     public void Damage(float damageAmount)
     {
@@ -21,14 +22,8 @@ public class EnemyHealthbarScript : MonoBehaviour //When placed on an enemy, man
 
         if (currentHealth <= 0)
         {
-            if (gameObject.transform.parent)
-            {
-                gameObject.transform.parent.gameObject.SetActive(false);
-            }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+            parentObject.SendMessage("deathOfSpawn");
+            transform.gameObject.SetActive(false);
         }
     }
 
