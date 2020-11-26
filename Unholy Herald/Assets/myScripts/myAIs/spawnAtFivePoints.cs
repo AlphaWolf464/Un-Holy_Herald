@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class spawnAtFivePoints : MonoBehaviour {
 
+    //**WARNING** Currently does not work with Sinner Prefab
+
     public GameObject spawnObject;
     public int triggerTimes = 1;
     public GameObject spawnLocation1;
