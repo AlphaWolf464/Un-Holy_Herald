@@ -7,7 +7,7 @@ public class EnemyHealthbarScript : MonoBehaviour //When placed on an enemy, man
 {
     public float currentHealth = 3;
     public Image healthBar;
-    float totalHealth;
+    public float totalHealth;
 
     private void Start()
     {
