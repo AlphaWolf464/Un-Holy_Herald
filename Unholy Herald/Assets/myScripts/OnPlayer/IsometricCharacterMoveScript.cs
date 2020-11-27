@@ -35,7 +35,6 @@ public class IsometricCharacterMoveScript : MonoBehaviour //When placed on the p
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
     }

@@ -42,7 +42,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     [HideInInspector] public bool questOngoing;//bool to manage if a quest is currently ongoing
 
     private Text zoneMessage;               //text to anounce zone messages
-    public string zoneName = "Zone 1";      //string to determine the name of the zone
+    [HideInInspector]public string zoneName;//string that holds the name of the current zone
     private string zoneText;                //string to determine quest output of the zone
 
     void Start()                            //sets all above vairables to their prefered start settings

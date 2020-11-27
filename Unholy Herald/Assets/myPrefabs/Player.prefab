@@ -396,32 +396,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.043670524, y: 0.0678152, z: 0.01919833}
   m_Center: {x: -0.0005241404, y: 0.03316819, z: 0.0007123876}
---- !u!65 &8121557517334284195
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6132178383452103705}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.049473744, y: 0.06987769, z: 0.026401829}
-  m_Center: {x: 0.00020341016, y: 0.03243486, z: 0.0013654757}
---- !u!114 &1867172184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6132178383452103705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d117275d6d24e4593729d01711a35d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
 --- !u!114 &1867172188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,12 +411,15 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   blackout: {fileID: 0}
   ability: {fileID: 0}
+  spawner: {fileID: 0}
   maxHealth: 100
   currentShieldHealth: 0
   deathscreen: {fileID: 0}
   auraIconImage: {fileID: 0}
   beamIconImage: {fileID: 0}
   shieldIconImage: {fileID: 0}
+  questOngoing: 0
+  zoneName: Zone 1
 --- !u!114 &2534295109156646166
 MonoBehaviour:
   m_ObjectHideFlags: 0

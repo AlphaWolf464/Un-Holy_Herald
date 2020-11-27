@@ -12,6 +12,8 @@ public class spawnAtVariblePoints : MonoBehaviour
     public GameObject[] spawnLocation;          //takes an array of GameObjects, who's position the 'spawnObject' clones will be spawned at
     private bool hasSpawned;                    //bool that makes sure only one 'spawnObject' is spawned at each 'spawnLocation'
 
+    public string zoneName = "Zone 1";          //string to determine the name of the zone
+
     [HideInInspector]public int deadSpawn;      //int that tracks how many spawned 'spawnObjects' have been killed
 
     private void Start()                        //initilized all above varables to prefered starting values
@@ -41,6 +43,7 @@ public class spawnAtVariblePoints : MonoBehaviour
         if (other.CompareTag("Player") && hasSpawned == false && playerUI.questOngoing == false)
         {
             playerUI.spawner = transform.GetComponent<spawnAtVariblePoints>();
+            playerUI.zoneName = zoneName;
             hasSpawned = true;
             playerUI.ZoneEntered();
             for (int i = 0; i < spawnLocation.Length; i++)
