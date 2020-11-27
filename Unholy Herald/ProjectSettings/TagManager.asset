@@ -9,6 +9,7 @@ TagManager:
   - PlayerAttack
   - Damage
   - Foe
+  - Geometry
   layers:
   - Default
   - TransparentFX
