@@ -9,6 +9,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     public UIHealthbarScript healthBar;     //takes the script that provides functions for managing the player's heathbar
     public UIBlackoutScript blackout;       //takes the script that provides functions for blacking out the screen
     public PlayerAbilityScript ability;     //takes the script that provides functions and variables for managing abilites
+    public spawnAtVariblePoints spawner;    //takes the script that provides variables to determin information about spawned entities
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
     private float currentPlayerHealth;      //int that tracks player's current health
@@ -36,6 +37,13 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     private Text shieldIconName;            //set to the name text of the shield icon
     private Text shieldIconKey;             //set to the key text of the shield icon
     private Text shieldIconCooldown;        //set to the cooldown text of the shield icon
+
+    private Text questLog;                  //text that will display the current quest
+    [HideInInspector] public bool questOngoing;//bool to manage if a quest is currently ongoing
+
+    private Text zoneMessage;               //text to anounce zone messages
+    public string zoneName = "Zone 1";      //string to determine the name of the zone
+    private string zoneText;                //string to determine quest output of the zone
 
     void Start()                            //sets all above vairables to their prefered start settings
     {
@@ -79,6 +87,14 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         SetNameText(shieldIconName, "Holy Shield");
         SetKeyText(shieldIconKey, ability.ShieldAbilityKey);
         SetCooldownText(shieldIconCooldown, ability.shieldCooldown);
+
+        questLog = GameObject.Find("Quest Log").GetComponent<Text>();
+        questOngoing = false;
+        ResetQuestText();
+
+        zoneMessage = GameObject.Find("Zone Message").GetComponent<Text>();
+        zoneMessage.enabled = false;
+        zoneText = "";
     }
     
     void Update()
@@ -113,6 +129,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
             healthBar.SetPlayerHealth(currentPlayerHealth);
         }
     }
+
+    //This section of functions manages what happens on player death
 
     private void avatarDeath()                              //runs proper fuctions to simulate player death
     {
@@ -163,6 +181,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
             }
         }
     }
+
+    //This section of functions manages the action bar UI
 
     private void backToMenu()                               //returns to the main menu scene
     {
@@ -226,5 +246,43 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         { SetCooldownAbilityIconColor(shieldImage); }                               //changes shieldImage to cooldown color at proper times
         else
         { SetNormalAbilityIconColor(shieldImage); }                                 //changes shieldImage to normal color at proper times
+    }
+
+    //This section of functions manages the quest log UI and zone clearing data
+
+    public void ZoneEntered()                      //updates UI to acount for entering a combat zone
+    {
+        questOngoing = true;
+        zoneMessage.text = zoneName + " entered.\nCombat Begins.";
+        zoneMessage.enabled = true;
+        ResetQuestText();
+        Invoke("ZoneMessageOff", 3f);
+    }
+
+    public void zoneCleared()                       //updates UI to acount for clearing a combat zone
+    {
+        questOngoing = false;
+        zoneMessage.text = zoneName + " cleared!";
+        zoneMessage.enabled = true;
+        Invoke("ZoneMessageOff", 1f);
+        Invoke("ResetQuestText", 1f);
+    }
+
+    private void ZoneMessageOff()                   //turns off 'zoneMessage'
+    {
+        zoneMessage.enabled = false;
+    }
+
+    public void ResetQuestText()                    //sets the 'questLog' text to the correct text
+    {
+        if (questOngoing)
+        {
+            zoneText = "\n" + (spawner.spawnLocation.Length - spawner.deadSpawn) + " of " + spawner.spawnLocation.Length + " enemies left in " + zoneName;
+        }
+        else
+        {
+            zoneText = "\n[No quests]";
+        }
+        questLog.text = "Quest Log:\n" + zoneText;
     }
 }

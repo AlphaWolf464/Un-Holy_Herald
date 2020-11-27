@@ -8,9 +8,9 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
     public UIHealthbarScript healthBar;                 //takes a script which provides functions to manage healthbar sliders
     public PlayerUIScript PlayerUI;                     //takes a script which provides vraibles to manage healthbar sliders
 
-    public KeyCode MeleeAbilityKey = KeyCode.Space;
-    public KeyCode BeamAbilityKey = KeyCode.Mouse0;                     
-    public KeyCode ShieldAbilityKey = KeyCode.Mouse1;
+    public KeyCode MeleeAbilityKey = KeyCode.Space;     //takes a keycode that will be used to activate the melee (aka aura) ability
+    public KeyCode BeamAbilityKey = KeyCode.Mouse0;     //takes a keycode that will be used to activate the beam ability
+    public KeyCode ShieldAbilityKey = KeyCode.Mouse1;   //takes a keycode that will be used to activate the shield avility
     
     [HideInInspector] public bool isAuraOn;             //bool that notes if the aura is active
     public Collider auraAttackZone;                     //takes a collider that surrounds the player
