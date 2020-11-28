@@ -14,7 +14,9 @@ public class spawnAtVariblePoints : MonoBehaviour
 
     public string zoneName = "Zone 1";          //string to determine the name of the zone
 
-    [HideInInspector]public int deadSpawn;      //int that tracks how many spawned 'spawnObjects' have been killed
+    [HideInInspector] public int deadSpawn;     //int that tracks how many spawned 'spawnObjects' have been killed
+
+    [HideInInspector] public bool zoneCleared;
 
     private void Start()                        //initilized all above varables to prefered starting values
     {
@@ -26,8 +28,10 @@ public class spawnAtVariblePoints : MonoBehaviour
         }
 
         hasSpawned = false;
-
+        transform.GetComponent<SphereCollider>().enabled = true;
         deadSpawn = 0;
+
+        zoneCleared = false;
     }
 
     void Update()
@@ -45,6 +49,7 @@ public class spawnAtVariblePoints : MonoBehaviour
             playerUI.spawner = transform.GetComponent<spawnAtVariblePoints>();
             playerUI.zoneName = zoneName;
             hasSpawned = true;
+            transform.GetComponent<SphereCollider>().enabled = false;
             playerUI.ZoneEntered();
             for (int i = 0; i < spawnLocation.Length; i++)
             {

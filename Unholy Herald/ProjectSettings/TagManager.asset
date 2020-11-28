@@ -10,6 +10,7 @@ TagManager:
   - Damage
   - Foe
   - Geometry
+  - Zone
   layers:
   - Default
   - TransparentFX

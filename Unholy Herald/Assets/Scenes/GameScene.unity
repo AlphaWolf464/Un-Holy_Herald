@@ -8449,7 +8449,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1931010474}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10216,8 +10216,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.7, y: 242.4}
-  m_SizeDelta: {x: 947.52484, y: 207.10608}
+  m_AnchoredPosition: {x: 4.7, y: 172.98}
+  m_SizeDelta: {x: 947.52484, y: 345.953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224899978
 MonoBehaviour:
@@ -10246,7 +10246,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 8
     m_MaxSize: 103
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -17702,6 +17702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543082772}
   - component: {fileID: 543082773}
+  - component: {fileID: 543082774}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -17738,6 +17739,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 1867172187}
   SmoothFactor: 0.5
+--- !u!114 &543082774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543082771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 795c3d2687d142a479f8469e06de9f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCleared: 0
+  zonesRemaining: 0
 --- !u!43 &545878343
 Mesh:
   m_ObjectHideFlags: 0
@@ -31523,7 +31538,7 @@ RectTransform:
   m_LocalScale: {x: 8.856077, y: 4.6354, z: 4.6354}
   m_Children: []
   m_Father: {fileID: 1931010474}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -41529,7 +41544,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1931010474}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -47023,7 +47038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d117275d6d24e4593729d01711a35d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
 --- !u!114 &1867172191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48327,7 +48342,7 @@ RectTransform:
   - {fileID: 542530709}
   - {fileID: 565819005}
   m_Father: {fileID: 1931010474}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -48626,10 +48641,10 @@ RectTransform:
   m_Children:
   - {fileID: 1175680664}
   - {fileID: 952900699}
+  - {fileID: 189783591}
   - {fileID: 894032922}
   - {fileID: 1673250717}
   - {fileID: 1903970936}
-  - {fileID: 189783591}
   - {fileID: 224899977}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -52625,6 +52640,14 @@ PrefabInstance:
       propertyPath: shieldIconKey
       value: 
       objectReference: {fileID: 1820051765}
+    - target: {fileID: 1867172188, guid: f603b3685db05ce4eb9a3382e0183a40, type: 3}
+      propertyPath: healthbars
+      value: 
+      objectReference: {fileID: 1175680666}
+    - target: {fileID: 1867172188, guid: f603b3685db05ce4eb9a3382e0183a40, type: 3}
+      propertyPath: UIblackout
+      value: 
+      objectReference: {fileID: 1867172191}
     - target: {fileID: 2534295109156646166, guid: f603b3685db05ce4eb9a3382e0183a40, type: 3}
       propertyPath: healthBar
       value: 

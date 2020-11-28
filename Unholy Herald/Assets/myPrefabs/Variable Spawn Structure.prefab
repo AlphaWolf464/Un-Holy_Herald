@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5702465477391288780}
   m_Layer: 0
   m_Name: Variable Spawn Structure
-  m_TagString: Untagged
+  m_TagString: Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,3 +59,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnObject: {fileID: 3065770136798135693, guid: 724b55cdb526cbb40ba5b943061b3f8c, type: 3}
   spawnLocation: []
+  zoneName: Zone 1
+  deadSpawn: 0
+  zoneCleared: 0

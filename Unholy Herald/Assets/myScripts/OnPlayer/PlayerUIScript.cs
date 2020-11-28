@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerUIScript : MonoBehaviour //When placed on the player, manages the player's UI (including death)
 {
-    public UIHealthbarScript healthBar;     //takes the script that provides functions for managing the player's heathbar
-    public UIBlackoutScript blackout;       //takes the script that provides functions for blacking out the screen
+    public UIHealthbarScript healthbars;     //takes the script that provides functions for managing the player's heathbar
+    public UIBlackoutScript UIblackout;       //takes the script that provides functions for blacking out the screen
     public PlayerAbilityScript ability;     //takes the script that provides functions and variables for managing abilites
-    public spawnAtVariblePoints spawner;    //takes the script that provides variables to determin information about spawned entities
+    [HideInInspector] public spawnAtVariblePoints spawner;//takes the script that provides variables to determin information about spawned entities
+    private LocalZoneManagerScript zoneManager;//takes the script that provides data about global zone statuses
+    [HideInInspector] public PlayerFaceMouseScript turnTo;
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
     private float currentPlayerHealth;      //int that tracks player's current health
@@ -41,13 +43,19 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     private Text questLog;                  //text that will display the current quest
     [HideInInspector] public bool questOngoing;//bool to manage if a quest is currently ongoing
 
-    private Text zoneMessage;               //text to anounce zone messages
-    [HideInInspector]public string zoneName;//string that holds the name of the current zone
+    [HideInInspector] public Text zoneMessage;//text to anounce zone messages
+    [HideInInspector] public string zoneName;//string that holds the name of the current zone
     private string zoneText;                //string to determine quest output of the zone
+
+    private string zonesRemainingText;      //string that notes how many zones are remaining
+    private bool warningMessage;            //bool that tracks if the final boss warning message has been sent
 
     void Start()                            //sets all above vairables to their prefered start settings
     {
         Time.timeScale = 1f;
+
+        zoneManager = GameObject.FindWithTag("MainCamera").GetComponentInParent<LocalZoneManagerScript>();
+        turnTo = GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>();
 
         deathscreen.enabled = false;
         deathscreen.text = "";
@@ -56,9 +64,9 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         writingSpeed = 0.1f;
 
         currentPlayerHealth = maxHealth;
-        healthBar.SetMaxPlayerHealth(maxHealth);
-        healthBar.SetPlayerHealthToMax();
-        healthBar.shieldHealth.transform.gameObject.SetActive(false);
+        healthbars.SetMaxPlayerHealth(maxHealth);
+        healthbars.SetPlayerHealthToMax();
+        healthbars.shieldHealth.transform.gameObject.SetActive(false);
         playerAlive = true;
 
         auraIconName = auraIconImage.transform.GetChild(0).GetComponent<Text>();
@@ -93,8 +101,11 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         ResetQuestText();
 
         zoneMessage = GameObject.Find("Zone Message").GetComponent<Text>();
+        zoneMessage.color = new Color(10, 10, 10, 255);
         zoneMessage.enabled = false;
         zoneText = "";
+
+        warningMessage = false;
     }
     
     void Update()
@@ -121,12 +132,12 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         if (ability.isShieldOn)
         {
             currentShieldHealth -= damage;
-            healthBar.SetShieldHealth(currentShieldHealth);
+            healthbars.SetShieldHealth(currentShieldHealth);
         }
         else
         {
             currentPlayerHealth -= damage;
-            healthBar.SetPlayerHealth(currentPlayerHealth);
+            healthbars.SetPlayerHealth(currentPlayerHealth);
         }
     }
 
@@ -134,7 +145,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
 
     private void avatarDeath()                              //runs proper fuctions to simulate player death
     {
-        StartCoroutine(blackout.FadeBlackOutSquare());
+        StartCoroutine(UIblackout.FadeBlackOutSquare());
         Invoke("deathScreen", 1);
     }
 
@@ -172,11 +183,18 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
                 characterIndex++;
                 deathscreen.text = deathscreenMessage.Substring(0, characterIndex);
 
-                if (characterIndex >= deathscreenMessage.Length - 1)
+                if (characterIndex >= deathscreenMessage.Length - 1 && playerAlive == false)                    //if the message is completed and the player is dead, return to main menu
                 {
                     isWriting = false;
                     Invoke("backToMenu", 2);
                     return;
+                }
+                else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared == true && warningMessage == false)   //if the message is completed and the main level is cleared, procced with the warning
+                {
+                    isWriting = false;
+                    warningMessage = true;
+                    SetTextWriter(zoneMessage, "Beware, an enemy aproaches....", writingSpeed);
+                    Invoke("FinalBossFight", 4);
                 }
             }
         }
@@ -256,15 +274,18 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         zoneMessage.text = zoneName + " entered.\nCombat Begins.";
         zoneMessage.enabled = true;
         ResetQuestText();
-        Invoke("ZoneMessageOff", 3f);
+        Invoke("ZoneMessageOff", 2.5f);
     }
 
     public void zoneCleared()                       //updates UI to acount for clearing a combat zone
     {
+        spawner.zoneCleared = true;
+        spawner.deadSpawn = 0;
         questOngoing = false;
-        zoneMessage.text = zoneName + " cleared!";
+        zoneManager.SendMessage("zoneConquered");
+        zoneMessage.text = zoneName + " cleared!" + zonesRemainingText;
         zoneMessage.enabled = true;
-        Invoke("ZoneMessageOff", 1f);
+        Invoke("ZoneMessageOff", 2f);
         Invoke("ResetQuestText", 1f);
     }
 
@@ -284,5 +305,32 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
             zoneText = "\n[No quests]";
         }
         questLog.text = "Quest Log:\n" + zoneText;
+    }
+
+    public void ResetUnclearedZoneText()
+    {
+        zonesRemainingText = "\nRemaining Zones: " + zoneManager.zonesRemaining;
+    }
+
+    public void EndOfLevelFade()
+    {
+        turnTo.enabled = false;
+        ability.enabled = false;
+        transform.GetComponent<IsometricCharacterMoveScript>().enabled = false;
+        zoneMessage.text = "\nRemaining Zones: " + zoneManager.zonesRemaining;
+        zoneMessage.color = new Color(255, 0, 0, 255);
+        deathscreen.enabled = true;
+        StartCoroutine(UIblackout.FadeBlackOutSquare());
+        Invoke("FinalBossWarning", 4.5f);
+    }
+
+    private void FinalBossWarning()
+    {
+        SetTextWriter(zoneMessage, "You have succesfully purged the city...\nBut victory is not yet at hand....", writingSpeed);
+    }
+
+    private void FinalBossFight()
+    {
+        Debug.Log("Begin!");
     }
 }

@@ -76,12 +76,13 @@
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\myScripts\myAIs\spawnAtFivePoints.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\PlayerFaceMouseScript.cs" />
+    <Compile Include="Assets\myScripts\myAIs\spawnAtVariblePoints.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\myScripts\CameraToPlayerFollowScript.cs" />
     <Compile Include="Assets\myScripts\OnPlayer\UIBlackoutScript.cs" />
     <Compile Include="Assets\myScripts\MainMenuScript.cs" />
-    <Compile Include="Assets\myScripts\myAIs\spawnAtVariblePoints.cs" />
+    <Compile Include="Assets\myScripts\myAIs\LocalZoneManagerScript.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

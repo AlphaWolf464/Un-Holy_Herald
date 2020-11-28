@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 680, y: 492}
   m_MaxSize: {x: 14003, y: 14042}
   vertical: 0
-  controlID: 5844
+  controlID: 15268
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 5845
+  controlID: 15269
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 5846
+  controlID: 15240
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,7 +220,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 60fbffff5a400000
+      m_ExpandedIDs: 60fbffff8e400000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -308,9 +308,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -20.179792, y: -2.1443696, z: 48.36925}
+    m_Target: {x: -9.2702675, y: 4.9715986, z: 41.412304}
     speed: 2
-    m_Value: {x: -20.179792, y: -2.1443696, z: 48.36925}
+    m_Value: {x: -9.2702675, y: 4.9715986, z: 41.412304}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -357,13 +357,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.22602849, y: 0.4655084, z: -0.12416672, w: -0.84720784}
+    m_Target: {x: -0.23008235, y: 0.41680446, z: -0.109912105, w: -0.87305504}
     speed: 2
-    m_Value: {x: -0.22591944, y: 0.4652838, z: -0.12410682, w: -0.84679914}
+    m_Value: {x: -0.22997089, y: 0.41660252, z: -0.109858856, w: -0.8726321}
   m_Size:
-    m_Target: 11.785408
+    m_Target: 8.177325
     speed: 2
-    m_Value: 11.785408
+    m_Value: 8.177325
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -478,21 +478,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/myScripts/myAIs
+    - Assets/myScripts/OnPlayer
     m_Globs: []
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/myScripts/myAIs
+  - Assets/myScripts/OnPlayer
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\UnityGames\Github\Un-Holy_Herald\Unholy Herald
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 4.399994}
-    m_SelectedIDs: e0440000
-    m_LastClickedID: 17632
-    m_ExpandedIDs: 00000000a4440000a6440000a844000000ca9a3b
+    m_SelectedIDs: e2440000
+    m_LastClickedID: 17634
+    m_ExpandedIDs: 00000000a0440000a2440000a444000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -520,7 +520,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a4440000a6440000a844000000ca9a3b
+    m_ExpandedIDs: 00000000a0440000a2440000a444000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -597,9 +597,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 555.2
-    width: 1121
-    height: 268
+    y: 556
+    width: 1120.6
+    height: 267.6
   m_ViewDataDictionary: {fileID: 0}
 --- !u!114 &13
 MonoBehaviour:
@@ -661,7 +661,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: 16474
-  m_LastVerticalScrollValue: 180
+  m_LastVerticalScrollValue: 644.0001
   m_AssetGUID: 
   m_InstanceID: 0
   m_LockTracker:
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c262c1329a02fa49b5cb4c297106f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MinSize: {x: 136, y: 28}
+  m_MinSize: {x: 139, y: 28}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: ProBuilder
