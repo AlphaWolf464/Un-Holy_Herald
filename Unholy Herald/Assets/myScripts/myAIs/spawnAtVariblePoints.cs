@@ -28,7 +28,7 @@ public class spawnAtVariblePoints : MonoBehaviour
         }
 
         hasSpawned = false;
-        transform.GetComponent<SphereCollider>().enabled = true;
+
         deadSpawn = 0;
 
         zoneCleared = false;
@@ -49,7 +49,6 @@ public class spawnAtVariblePoints : MonoBehaviour
             playerUI.spawner = transform.GetComponent<spawnAtVariblePoints>();
             playerUI.zoneName = zoneName;
             hasSpawned = true;
-            transform.GetComponent<SphereCollider>().enabled = false;
             playerUI.ZoneEntered();
             for (int i = 0; i < spawnLocation.Length; i++)
             {

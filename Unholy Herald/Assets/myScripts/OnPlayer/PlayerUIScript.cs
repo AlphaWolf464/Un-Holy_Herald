@@ -141,6 +141,16 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         }
     }
 
+    public void passiveRegen()
+    {
+        if (currentPlayerHealth < maxHealth)
+        {
+            currentPlayerHealth += 1;
+            healthbars.SetPlayerHealth(currentPlayerHealth);
+        }
+        Invoke("passiveRegen", 2.5f);
+    }
+
     //This section of functions manages what happens on player death
 
     private void avatarDeath()                              //runs proper fuctions to simulate player death
@@ -152,16 +162,16 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     private void deathScreen ()                             //enables deathscreen text
     {
         deathscreen.enabled = true;
-        SetTextWriter(deathscreen, deathscreenMessage, writingSpeed);
+        SetTextWriter(deathscreenMessage, writingSpeed);
     }
 
-    private void SetTextWriter(Text iuText, string text, float timePerCharacter)//sets varriables to proper setting for CheckTextWriter to work properly 
+    private void SetTextWriter(string text, float timePerCharacter)//sets varriables to proper setting for CheckTextWriter to work properly 
     {
-        isWriting = true;
         deathscreenMessage = text + " ";
         characterIndex = 0;
         timer = 0f;
         writingSpeed = timePerCharacter;
+        isWriting = true;
     }
 
     private void CheckTextWriter()                          //runs proper functions to print out a deathscreen message when `isWriting` is true
@@ -189,12 +199,18 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
                     Invoke("backToMenu", 2);
                     return;
                 }
-                else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared == true && warningMessage == false)   //if the message is completed and the main level is cleared, procced with the warning
+                else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared == true)   //if the message is completed and the main level is cleared, procced with the warning
                 {
                     isWriting = false;
-                    warningMessage = true;
-                    SetTextWriter(zoneMessage, "Beware, an enemy aproaches....", writingSpeed);
-                    Invoke("FinalBossFight", 4);
+                    if (warningMessage == false)
+                    {
+                        SetTextWriter("Beware, an enemy aproaches...", writingSpeed);
+                        warningMessage = true;
+                    }
+                    else
+                    {
+                        Invoke("FinalBossFight", 2);
+                    }
                 }
             }
         }
@@ -289,9 +305,16 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         Invoke("ResetQuestText", 1f);
     }
 
-    private void ZoneMessageOff()                   //turns off 'zoneMessage'
+    private void ZoneMessageOff()                   //turns off 'zoneMessage' or fades out the game, when apropriate
     {
-        zoneMessage.enabled = false;
+        if (zoneManager.levelCleared == true)
+        {
+            EndOfLevelFade();
+        }
+        else
+        {
+            zoneMessage.enabled = false;
+        }
     }
 
     public void ResetQuestText()                    //sets the 'questLog' text to the correct text
@@ -320,17 +343,28 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         zoneMessage.text = "\nRemaining Zones: " + zoneManager.zonesRemaining;
         zoneMessage.color = new Color(255, 0, 0, 255);
         deathscreen.enabled = true;
-        StartCoroutine(UIblackout.FadeBlackOutSquare());
+        StartCoroutine(UIblackout.FadeBlackOutSquare(true, 1));
         Invoke("FinalBossWarning", 4.5f);
+        Invoke("ZoneMessageTurnOff", 3f);
+    }
+
+    private void ZoneMessageTurnOff()               //turns off 'zoneMessage'
+    {
+        zoneMessage.enabled = false;
     }
 
     private void FinalBossWarning()
     {
-        SetTextWriter(zoneMessage, "You have succesfully purged the city...\nBut victory is not yet at hand....", writingSpeed);
+        SetTextWriter("You have succesfully purged the city...\nBut victory is not yet at hand....", writingSpeed);
     }
 
     private void FinalBossFight()
     {
-        Debug.Log("Begin!");
+        deathscreen.enabled = false;
+        StartCoroutine(UIblackout.FadeBlackOutSquare(false, 1));
+        transform.GetComponent<IsometricCharacterMoveScript>().enabled = true;
+        ability.enabled = true;
+        turnTo.enabled = true;
+        zoneManager.FinalBossSpawn();
     }
 }

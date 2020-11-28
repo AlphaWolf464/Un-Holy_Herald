@@ -1033,6 +1033,36 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &63875226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63875227}
+  m_Layer: 0
+  m_Name: Boss Spawnpoint
+  m_TagString: Boss Spawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &63875227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63875226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.9960866, y: 5.0741973, z: 25.110981}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &72280707
 GameObject:
   m_ObjectHideFlags: 0
@@ -17753,6 +17783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelCleared: 0
   zonesRemaining: 0
+  FinalBoss: {fileID: 7156282013898799182, guid: 64badddab8a56334da539884e870d7cd, type: 3}
 --- !u!43 &545878343
 Mesh:
   m_ObjectHideFlags: 0
@@ -52668,6 +52699,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: PlayerAura
       objectReference: {fileID: 0}
+    - target: {fileID: 5534100848611143774, guid: f603b3685db05ce4eb9a3382e0183a40, type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 1867172186}
     - target: {fileID: 6132178383452103705, guid: f603b3685db05ce4eb9a3382e0183a40, type: 3}
       propertyPath: m_Name
       value: Player

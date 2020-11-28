@@ -10,16 +10,18 @@ public class LocalZoneManagerScript : MonoBehaviour
     [HideInInspector] public bool levelCleared;
     [HideInInspector] public int zonesRemaining;
 
+    public GameObject FinalBoss;
+    private GameObject bossSpawnpoint;
+
     void Start()
     {
-
         playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
 
         zones = GameObject.FindGameObjectsWithTag("Zone");
-
         levelCleared = false;
-
         zonesRemaining = zones.Length;
+
+        bossSpawnpoint = GameObject.FindWithTag("Boss Spawn");
     }
     void Update()
     {
@@ -28,7 +30,6 @@ public class LocalZoneManagerScript : MonoBehaviour
             if (isLevelCleared() == true)
             {
                 levelCleared = true;
-                playerUI.EndOfLevelFade();
             }
         }
     }
@@ -49,5 +50,16 @@ public class LocalZoneManagerScript : MonoBehaviour
     {
         zonesRemaining--;
         playerUI.ResetUnclearedZoneText();
+    }
+
+    public void FinalBossSpawn()
+    {
+        Instantiate(FinalBoss, bossSpawnpoint.transform.position, bossSpawnpoint.transform.rotation);
+        Invoke("FinalBossAwaken", 3);
+    }
+
+    private void FinalBossAwaken()
+    {
+
     }
 }
