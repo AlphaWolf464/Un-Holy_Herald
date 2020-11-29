@@ -12,6 +12,9 @@ TagManager:
   - Geometry
   - Zone
   - Boss Spawn
+  - Boss Melee
+  - Boss Charge
+  - Final Boss
   layers:
   - Default
   - TransparentFX

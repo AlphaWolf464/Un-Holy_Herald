@@ -19,5 +19,9 @@ public class PlayerHitboxTriggerScript : MonoBehaviour //When placed on the play
         {
             playerUI.takeDamage(5);
         }
+        else if (CompareTag("Player") && other.CompareTag("Boss Melee"))
+        {
+            playerUI.takeDamage(15);
+        }
     }
 }

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 3
-  healthBar: {fileID: 743988638}
+  totalHealth: 0
 --- !u!65 &7787455686007712422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 3
-  healthBar: {fileID: 743988638}
+  totalHealth: 0
 --- !u!114 &2186474036208511359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,17 +360,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5229ef3f257f20f4fb8915c0b615ef13, type: 3}
---- !u!114 &743988638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9029104332702512500, guid: 5229ef3f257f20f4fb8915c0b615ef13, type: 3}
-  m_PrefabInstance: {fileID: 9029104332237449450}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2653097340480849824 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6457145316667895626, guid: 5229ef3f257f20f4fb8915c0b615ef13, type: 3}

@@ -11,7 +11,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     private PlayerAbilityScript ability;    //takes the script that provides functions and variables for managing abilites
     [HideInInspector] public spawnAtVariblePoints spawner;//takes the script that provides variables to determin information about spawned entities
     private LocalZoneManagerScript zoneManager;//takes the script that provides data about global zone statuses
-    [HideInInspector] public PlayerFaceMouseScript turnTo;
+    [HideInInspector] public PlayerFaceMouseScript turnTo;//takes the script that turns the player to face the mouse
+    private FallenAngelScript finalBoss;    //takes the script that controls the final boss
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
     private float currentPlayerHealth;      //int that tracks player's current health
@@ -59,6 +60,11 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         ability = GameObject.FindWithTag("Player").GetComponent<PlayerAbilityScript>();
         zoneManager = GameObject.FindWithTag("MainCamera").GetComponentInParent<LocalZoneManagerScript>();
         turnTo = GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>();
+        finalBoss = GameObject.FindWithTag("Final Boss").GetComponent<FallenAngelScript>();
+
+        ability.enabled = true;
+        turnTo.enabled = true;
+        GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>().enabled = true;
 
         deathscreen = GameObject.Find("Deathscreen").GetComponent<Text>();
         deathscreen.enabled = false;
@@ -205,6 +211,11 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
                     isWriting = false;
                     Invoke("backToMenu", 2);
                     return;
+                }
+                else if (characterIndex >= deathscreenMessage.Length - 1 && finalBoss.FallenAngelDead == true)  //if the message is completed and the final boss is dead, repeat the message chant
+                {
+                    isWriting = false;
+                    Invoke("VictoryScreen", 0.5f);
                 }
                 else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared == true)   //if the message is completed and the main level is cleared, procced with the warning
                 {
@@ -373,5 +384,13 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         ability.enabled = true;
         turnTo.enabled = true;
         zoneManager.FinalBossSpawn();
+    }
+
+    public void VictoryScreen()
+    {
+        deathscreen.text = "";
+        deathscreen.enabled = true;
+        SetTextWriter("Deus lo vult", 0.2f);
+        Invoke("backToMenu", 13);
     }
 }
