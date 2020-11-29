@@ -695,8 +695,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.048839744, y: 0.0064840815, z: 0.5044722}
-  m_Center: {x: -0.001753693, y: -0.0059468267, z: 0.24776295}
+  m_Size: {x: 0.048839744, y: 0.0064840815, z: 0.1790205}
+  m_Center: {x: -0.001753693, y: -0.0059468267, z: 0.08503711}
 --- !u!1 &2879413219748656058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1049,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4036310527260770311}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 225.58}
+  m_LocalPosition: {x: 0, y: 0, z: 79.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4854869945543124}
@@ -1058,7 +1058,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -53.1}
-  m_SizeDelta: {x: 451.55786, y: 30}
+  m_SizeDelta: {x: 159.73334, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5257171461366858998
 CanvasRenderer:
@@ -1101,7 +1101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <=======================================================
+  m_Text: <=======================
 --- !u!1 &5064079830674315240
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,8 +1113,8 @@ GameObject:
   - component: {fileID: 1217414834319056407}
   - component: {fileID: 1288898289743603117}
   m_Layer: 0
-  m_Name: Aura Attack
-  m_TagString: PlayerAttack
+  m_Name: Player Aura
+  m_TagString: PlayerAura
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1484,6 +1484,9 @@ GameObject:
   - component: {fileID: 1867172188}
   - component: {fileID: 2534295109156646166}
   - component: {fileID: 5534100848611143774}
+  - component: {fileID: 583859780935130487}
+  - component: {fileID: 1867172191}
+  - component: {fileID: 1867172192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1498,7 +1501,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6132178383452103705}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.88, y: 3.0218349, z: 36.45}
   m_LocalScale: {x: 29.174341, y: 29.174341, z: 29.174341}
   m_Children:
@@ -1554,6 +1557,7 @@ MonoBehaviour:
   turnTo: {fileID: 0}
   maxHealth: 100
   currentShieldHealth: 0
+  FallenAngelDead: 0
   questOngoing: 0
   zoneMessage: {fileID: 0}
   zoneName: Zone 1
@@ -1574,17 +1578,12 @@ MonoBehaviour:
   BeamAbilityKey: 323
   ShieldAbilityKey: 324
   isAuraOn: 0
-  auraAttackZone: {fileID: 1288898289743603117}
-  auraAttackEffect: {fileID: 2648273274871682718}
   auraAttackCooldown: 0.5
   auraCooldownActive: 0
   isBeamOn: 0
-  beamAttackZone: {fileID: 1935424042916072635}
-  beamAttackEffect: {fileID: 7186904397752757508}
   beamAttackCooldown: 2
   beamCooldownActive: 0
   isShieldOn: 0
-  shieldEffect: {fileID: 8915609039538154693}
   shieldCooldown: 5
   shieldCooldownActive: 0
   shieldDurration: 4
@@ -1598,6 +1597,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdb273852573fe64b96b6ace4db0bc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &583859780935130487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132178383452103705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d117275d6d24e4593729d01711a35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+--- !u!114 &1867172191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132178383452103705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5525976d5fd5d024484632fe055ca925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackOutSquare: {fileID: 0}
+--- !u!114 &1867172192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132178383452103705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b1a60a1468d4245a5ca78529ff6636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6419538270406215182

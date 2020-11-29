@@ -23,5 +23,9 @@ public class PlayerHitboxTriggerScript : MonoBehaviour //When placed on the play
         {
             playerUI.takeDamage(15);
         }
+        else if (CompareTag("Player") && other.CompareTag("Boss Charge"))
+        {
+            playerUI.takeDamage(35);
+        }
     }
 }

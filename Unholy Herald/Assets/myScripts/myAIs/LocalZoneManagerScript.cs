@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LocalZoneManagerScript : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class LocalZoneManagerScript : MonoBehaviour
     [HideInInspector] public bool levelCleared;
     [HideInInspector] public int zonesRemaining;
 
-    public GameObject FinalBoss;
+    public GameObject FinalBossPrefab;
+    private GameObject FallenAngel;
     private GameObject bossSpawnpoint;
 
     void Start()
@@ -54,12 +56,14 @@ public class LocalZoneManagerScript : MonoBehaviour
 
     public void FinalBossSpawn()
     {
-        Instantiate(FinalBoss, bossSpawnpoint.transform.position, bossSpawnpoint.transform.rotation);
+        Instantiate(FinalBossPrefab, bossSpawnpoint.transform.position, bossSpawnpoint.transform.rotation);
+        FallenAngel = GameObject.FindWithTag("Final Boss");
+        FallenAngel.SetActive(false);
         Invoke("FinalBossAwaken", 3);
     }
 
     private void FinalBossAwaken()
     {
-
+        FallenAngel.SetActive(true);
     }
 }

@@ -12,13 +12,13 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     [HideInInspector] public spawnAtVariblePoints spawner;//takes the script that provides variables to determin information about spawned entities
     private LocalZoneManagerScript zoneManager;//takes the script that provides data about global zone statuses
     [HideInInspector] public PlayerFaceMouseScript turnTo;//takes the script that turns the player to face the mouse
-    private FallenAngelScript finalBoss;    //takes the script that controls the final boss
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
     private float currentPlayerHealth;      //int that tracks player's current health
     [HideInInspector] public float currentShieldHealth;//float that tracks player shield's current health
     private bool playerAlive;               //bool that tracks if the player is alive or dead
-    
+    [HideInInspector] public bool FallenAngelDead;//bool that tracks if the final boss is alive or dead
+
     private Text deathscreen;               //takes the text that is used in the deathscreen
     private bool isWriting;                 //bool that notes if deathscreen writing is actve
     private string deathscreenMessage;      //string that contains the message printed on the deathscreen
@@ -51,6 +51,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     private string zonesRemainingText;      //string that notes how many zones are remaining
     private bool warningMessage;            //bool that tracks if the final boss warning message has been sent
 
+    [HideInInspector] public bool freezeTurn;
+
     void Start()                            //sets all above vairables to their prefered start settings
     {
         Time.timeScale = 1f;
@@ -60,17 +62,14 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         ability = GameObject.FindWithTag("Player").GetComponent<PlayerAbilityScript>();
         zoneManager = GameObject.FindWithTag("MainCamera").GetComponentInParent<LocalZoneManagerScript>();
         turnTo = GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>();
-        finalBoss = GameObject.FindWithTag("Final Boss").GetComponent<FallenAngelScript>();
 
         ability.enabled = true;
         turnTo.enabled = true;
-        GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>().enabled = true;
 
         deathscreen = GameObject.Find("Deathscreen").GetComponent<Text>();
         deathscreen.enabled = false;
         deathscreen.text = "";
         isWriting = false;
-        deathscreenMessage = "Your avatar has died...\n You have failed the Lord";
         writingSpeed = 0.1f;
 
         currentPlayerHealth = maxHealth;
@@ -78,6 +77,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         healthbars.SetPlayerHealthToMax();
         healthbars.shieldHealth.transform.gameObject.SetActive(false);
         playerAlive = true;
+        FallenAngelDead = false;
 
         auraIconImage = GameObject.Find("Ability Icon - Aura").GetComponent<Image>();
         auraIconName = auraIconImage.transform.GetChild(0).GetComponent<Text>();
@@ -119,6 +119,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         zoneText = "";
 
         warningMessage = false;
+
+        freezeTurn = false;
     }
     
     void Update()
@@ -174,6 +176,9 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
 
     private void deathScreen ()                             //enables deathscreen text
     {
+        deathscreen.color = new Color(255, 0, 0, 255);
+        deathscreenMessage = "Your avatar has died...\n You have failed the Lord";
+        deathscreen.text = "";
         deathscreen.enabled = true;
         SetTextWriter(deathscreenMessage, writingSpeed);
     }
@@ -212,18 +217,18 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
                     Invoke("backToMenu", 2);
                     return;
                 }
-                else if (characterIndex >= deathscreenMessage.Length - 1 && finalBoss.FallenAngelDead == true)  //if the message is completed and the final boss is dead, repeat the message chant
+                else if (characterIndex >= deathscreenMessage.Length - 1 && FallenAngelDead == true)            //if the message is completed and the final boss is dead, repeat the message chant
                 {
                     isWriting = false;
                     Invoke("VictoryScreen", 0.5f);
                 }
-                else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared == true)   //if the message is completed and the main level is cleared, procced with the warning
+                else if (characterIndex >= deathscreenMessage.Length - 1 && zoneManager.levelCleared && !FallenAngelDead && playerAlive)//if the message is completed and the main level is cleared but the final boss isn't dead, procced with the warning
                 {
                     isWriting = false;
                     if (warningMessage == false)
                     {
-                        SetTextWriter("Beware, an enemy aproaches...", writingSpeed);
-                        warningMessage = true;
+                        deathscreen.text = "";
+                        Invoke("SecondFinalBossWarning", 0.5f);
                     }
                     else
                     {
@@ -355,14 +360,14 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
 
     public void EndOfLevelFade()
     {
-        turnTo.enabled = false;
+        freezeTurn = true;
         ability.enabled = false;
         transform.GetComponent<IsometricCharacterMoveScript>().enabled = false;
         zoneMessage.text = "\nRemaining Zones: " + zoneManager.zonesRemaining;
         zoneMessage.color = new Color(255, 0, 0, 255);
         deathscreen.enabled = true;
         StartCoroutine(UIblackout.FadeBlackOutSquare(true, 1));
-        Invoke("FinalBossWarning", 4.5f);
+        Invoke("FirstFinalBossWarning", 4.5f);
         Invoke("ZoneMessageTurnOff", 3f);
     }
 
@@ -371,9 +376,17 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         zoneMessage.enabled = false;
     }
 
-    private void FinalBossWarning()
+    private void FirstFinalBossWarning()
     {
+        deathscreen.color = new Color(255, 120, 0, 255);
         SetTextWriter("You have succesfully purged the city...\nBut victory is not yet at hand....", writingSpeed);
+    }
+
+    private void SecondFinalBossWarning()
+    {
+        warningMessage = true;
+        deathscreen.color = new Color(255, 0, 0, 255);
+        SetTextWriter("Beware, an enemy aproaches...", writingSpeed);
     }
 
     private void FinalBossFight()
@@ -382,7 +395,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         StartCoroutine(UIblackout.FadeBlackOutSquare(false, 1));
         transform.GetComponent<IsometricCharacterMoveScript>().enabled = true;
         ability.enabled = true;
-        turnTo.enabled = true;
+        freezeTurn = false;
         zoneManager.FinalBossSpawn();
     }
 
@@ -390,6 +403,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     {
         deathscreen.text = "";
         deathscreen.enabled = true;
+        deathscreen.color = new Color(0, 255, 0, 255);
         SetTextWriter("Deus lo vult", 0.2f);
         Invoke("backToMenu", 13);
     }

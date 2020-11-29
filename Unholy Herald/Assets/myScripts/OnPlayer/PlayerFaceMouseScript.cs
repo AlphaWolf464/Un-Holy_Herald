@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerFaceMouseScript : MonoBehaviour
 {
+    [HideInInspector] public PlayerUIScript playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
+
     Ray cameraRay;
     RaycastHit cameraRayHit;
     Vector3 mousePosition;
@@ -15,7 +17,10 @@ public class PlayerFaceMouseScript : MonoBehaviour
         {
             if (cameraRayHit.transform.tag == "Geometry" || cameraRayHit.transform.root.tag == "Geometry" || cameraRayHit.transform.tag == "Foe" || cameraRayHit.transform.root.tag == "Foe")
             {
-                mousePosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
+                if (playerUI.freezeTurn == false)
+                {
+                    mousePosition = new Vector3(cameraRayHit.point.x, transform.position.y, cameraRayHit.point.z);
+                }
             }
             transform.LookAt(mousePosition);
         }
