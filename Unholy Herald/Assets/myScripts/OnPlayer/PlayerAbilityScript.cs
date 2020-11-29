@@ -5,49 +5,57 @@ using UnityEngine.UI;
 
 public class PlayerAbilityScript : MonoBehaviour //When placed on player, manages attacks and abilites
 {
-    public UIHealthbarScript healthBar;                 //takes a script which provides functions to manage healthbar sliders
-    public PlayerUIScript PlayerUI;                     //takes a script which provides vraibles to manage healthbar sliders
+    private UIHealthbarScript healthbars;               //takes a script which provides functions to manage healthbar sliders
+    [HideInInspector] public PlayerUIScript playerUI;   //takes a script which provides vraibles to manage healthbar sliders
 
     public KeyCode MeleeAbilityKey = KeyCode.Space;     //takes a keycode that will be used to activate the melee (aka aura) ability
     public KeyCode BeamAbilityKey = KeyCode.Mouse0;     //takes a keycode that will be used to activate the beam ability
     public KeyCode ShieldAbilityKey = KeyCode.Mouse1;   //takes a keycode that will be used to activate the shield avility
     
     [HideInInspector] public bool isAuraOn;             //bool that notes if the aura is active
-    public Collider auraAttackZone;                     //takes a collider that surrounds the player
-    public Text auraAttackEffect;                       //takes a text object to be used as a visual indicator of 'auraAttackZone'
+    private Collider auraAttackZone;                    //takes a collider that surrounds the player
+    private Text auraAttackEffect;                      //takes a text object to be used as a visual indicator of 'auraAttackZone'
     public float auraAttackCooldown = 0.5f;             //takes a float that will determien the time between activations of 'auraAttack'
     [HideInInspector] public bool auraCooldownActive;   //bool that will help make the cooldown effective
     private float auraAttackDurration = 0.2f;           //float that determines the length of attack of 'auraAttack'
 
     [HideInInspector] public bool isBeamOn;             //bool that notes if the beam is active
-    public Collider beamAttackZone;                     //takes a collider that streches out in front of the player
-    public Text beamAttackEffect;                       //takes a text object to be used as a visual indicator of 'beamAttackZone'
+    private Collider beamAttackZone;                    //takes a collider that streches out in front of the player
+    private Text beamAttackEffect;                      //takes a text object to be used as a visual indicator of 'beamAttackZone'
     public float beamAttackCooldown = 2f;               //takes a float that will determien the time between activations of 'beamAttack'
     [HideInInspector] public bool beamCooldownActive;   //bool that will help make the cooldown effective
     private float beamAttackDurration = 0.1f;           //float that determines the length of attack of 'beamAttack'
 
     [HideInInspector] public bool isShieldOn;           //bool that notes if the shield is active (used widely for making sure player can't take damage or attack while shield us up)
-    public Text shieldEffect;                           //takes a text object  to be used as a visual indicator of 'shieldUp'
+    private Text shieldEffect;                          //takes a text object  to be used as a visual indicator of 'shieldUp'
     public float shieldCooldown = 5f;                   //takes a float that will determien the time between activations of 'shieldUp'
     [HideInInspector] public bool shieldCooldownActive; //bool that will help make the cooldown effective
     public float shieldDurration = 4f;                  //takes a float that determines the length of uptime for 'shieldUp'
 
     void Start()                                        //initilizes all above variables to their prefered start condition
     {
-        properAttackColliderTag(auraAttackZone);
-        properAttackColliderTag(beamAttackZone);
+        healthbars = GameObject.Find("Healthbar").GetComponent<UIHealthbarScript>();
+        playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
 
+        auraAttackZone = GameObject.FindWithTag("Player").transform.GetChild(1).transform.GetChild(0).GetComponent<Collider>();
         auraAttackZone.enabled = false;
+        auraAttackEffect = GameObject.FindWithTag("Player").transform.GetChild(2).transform.GetChild(0).GetComponent<Text>();
         auraAttackEffect.enabled = false;
         auraCooldownActive = false;
 
+        beamAttackZone = GameObject.FindWithTag("Player").transform.GetChild(1).transform.GetChild(1).GetComponent<Collider>();
         beamAttackZone.enabled = false;
+        beamAttackEffect = GameObject.FindWithTag("Player").transform.GetChild(2).transform.GetChild(1).GetComponent<Text>();
         beamAttackEffect.enabled = false;
         beamCooldownActive = false;
 
         isShieldOn = false;
+        shieldEffect = GameObject.FindWithTag("Player").transform.GetChild(2).transform.GetChild(2).GetComponent<Text>();
         shieldEffect.enabled = false;
         shieldCooldownActive = false;
+
+        properAttackColliderTag(auraAttackZone);
+        properAttackColliderTag(beamAttackZone);
 
     }
 
@@ -76,7 +84,7 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
 
     private void properAttackColliderTag(Collider attack)   //takes an attack collider and makes sure it has the proper tag to work with the 'EnemyHealthBar' script
     {
-        attack.tag = "PlayerAttack";
+        attack.transform.tag = "PlayerAttack";
     }
 
     private void auraAttack()                               //changes proper bools so aura attack starts
@@ -122,10 +130,10 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
     private void shieldUp()                                 //runs proper functions to set up a player shield
     {
         isShieldOn = true;
-        healthBar.shieldHealth.transform.gameObject.SetActive(true);
-        healthBar.SetMaxShieldHealth(PlayerUI.maxHealth / 2);
-        healthBar.SetShieldHealthToMax();
-        PlayerUI.currentShieldHealth = healthBar.shieldHealth.value;
+        healthbars.shieldHealth.transform.gameObject.SetActive(true);
+        healthbars.SetMaxShieldHealth(playerUI.maxHealth / 2);
+        healthbars.SetShieldHealthToMax();
+        playerUI.currentShieldHealth = healthbars.shieldHealth.value;
         shieldEffect.enabled = true;
     }
 
@@ -133,8 +141,8 @@ public class PlayerAbilityScript : MonoBehaviour //When placed on player, manage
     {
         shieldCooldownActive = true;
         isShieldOn = false;
-        healthBar.shieldHealth.transform.gameObject.SetActive(false);
-        healthBar.ShieldDamageSpillover(PlayerUI.currentShieldHealth);
+        healthbars.shieldHealth.transform.gameObject.SetActive(false);
+        healthbars.ShieldDamageSpillover(playerUI.currentShieldHealth);
         shieldEffect.enabled = false;
     }
 

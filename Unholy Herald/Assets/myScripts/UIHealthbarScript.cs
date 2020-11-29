@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class UIHealthbarScript : MonoBehaviour //When placed on the `healthbar` on the canvas, provides functions to `PlayerScript` for it to manage the player's healthbar
 {
-    public PlayerUIScript player;
+    private PlayerUIScript playerUI;
 
     public Slider playerHealth;
     public Slider shieldHealth;
+
+    void Start()
+    {
+        playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
+    }
 
     public void SetMaxPlayerHealth(float health)
     {
@@ -44,7 +49,7 @@ public class UIHealthbarScript : MonoBehaviour //When placed on the `healthbar` 
     {
         if (health < 0)
         {
-            player.takeDamage(Mathf.Abs(health));
+            playerUI.takeDamage(Mathf.Abs(health));
         }
     }
 }

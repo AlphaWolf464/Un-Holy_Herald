@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class EnemyHealthbarScript : MonoBehaviour //When placed on an enemy, manages their healthbar, checks tosee if damage has been taken, and reports death to the parent
 {
     public float currentHealth = 3;
-    public Image healthBar;
+    private Image healthBar;
     public float totalHealth;
     private GameObject parentObject;
 
     private void Start()
     {
+        healthBar = transform.GetChild(15).transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
         totalHealth = currentHealth;
         parentObject = transform.parent.transform.gameObject;
     }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerHitboxTriggerScript : MonoBehaviour //When placed on the player, makes the player take damage whenever an "Enemy" enters a 'trigger' collider on or under the player gameobject
 {
-    public PlayerUIScript playerUI;
+    private PlayerUIScript playerUI;
 
     void Start()
     {
+        playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
+
         playerUI.passiveRegen();
     }
 

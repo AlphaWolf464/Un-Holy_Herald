@@ -16,9 +16,9 @@ public class PauseMenuScript : MonoBehaviour
     private void Start()
     {
         ability = GameObject.FindWithTag("Player").GetComponent<PlayerAbilityScript>();
-        turnTo = ability.PlayerUI.turnTo;
+        turnTo = ability.playerUI.turnTo;
 
-storyScreen = pauseMenu.transform.GetChild(2).gameObject;
+        storyScreen = pauseMenu.transform.GetChild(2).gameObject;
 
         isPaused = false;
         pauseMenu.SetActive(false);

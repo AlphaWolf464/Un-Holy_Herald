@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerUIScript : MonoBehaviour //When placed on the player, manages the player's UI (including death)
 {
-    public UIHealthbarScript healthbars;     //takes the script that provides functions for managing the player's heathbar
-    public UIBlackoutScript UIblackout;       //takes the script that provides functions for blacking out the screen
-    public PlayerAbilityScript ability;     //takes the script that provides functions and variables for managing abilites
+    [HideInInspector] public UIHealthbarScript healthbars;//takes the script that provides functions for managing the player's heathbar
+    private UIBlackoutScript UIblackout;    //takes the script that provides functions for blacking out the screen
+    private PlayerAbilityScript ability;    //takes the script that provides functions and variables for managing abilites
     [HideInInspector] public spawnAtVariblePoints spawner;//takes the script that provides variables to determin information about spawned entities
     private LocalZoneManagerScript zoneManager;//takes the script that provides data about global zone statuses
     [HideInInspector] public PlayerFaceMouseScript turnTo;
@@ -18,24 +18,24 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     [HideInInspector] public float currentShieldHealth;//float that tracks player shield's current health
     private bool playerAlive;               //bool that tracks if the player is alive or dead
     
-    public Text deathscreen;                //takes the text that is used in the deathscreen
+    private Text deathscreen;               //takes the text that is used in the deathscreen
     private bool isWriting;                 //bool that notes if deathscreen writing is actve
     private string deathscreenMessage;      //string that contains the message printed on the deathscreen
     private int characterIndex;             //int that helps manage deathscreen printing
     private float timer;                    //float that helps manage deathscreen printing speed
     private float writingSpeed;             //float that determies deathscreen printing speed
 
-    public Image auraIconImage;             //takes the image of the aura icon
+    private Image auraIconImage;            //takes the image of the aura icon
     private Text auraIconName;              //set to the name text of the aura icon
     private Text auraIconKey;               //set to the key text of the aura icon
     private Text auraIconCooldown;          //set to the cooldown text of the aura icon
 
-    public Image beamIconImage;             //takes the image of the beam icon
+    private Image beamIconImage;            //takes the image of the beam icon
     private Text beamIconName;              //set to the name text of the beam icon
     private Text beamIconKey;               //set to the key text of the beam icon
     private Text beamIconCooldown;          //set to the cooldown text of the beam icon
 
-    public Image shieldIconImage;           //takes the image of the shield icon
+    private Image shieldIconImage;          //takes the image of the shield icon
     private Text shieldIconName;            //set to the name text of the shield icon
     private Text shieldIconKey;             //set to the key text of the shield icon
     private Text shieldIconCooldown;        //set to the cooldown text of the shield icon
@@ -54,9 +54,13 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     {
         Time.timeScale = 1f;
 
+        healthbars = GameObject.Find("Healthbar").GetComponent<UIHealthbarScript>();
+        UIblackout = GameObject.FindWithTag("Player").GetComponent<UIBlackoutScript>();
+        ability = GameObject.FindWithTag("Player").GetComponent<PlayerAbilityScript>();
         zoneManager = GameObject.FindWithTag("MainCamera").GetComponentInParent<LocalZoneManagerScript>();
         turnTo = GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>();
 
+        deathscreen = GameObject.Find("Deathscreen").GetComponent<Text>();
         deathscreen.enabled = false;
         deathscreen.text = "";
         isWriting = false;
@@ -69,14 +73,17 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         healthbars.shieldHealth.transform.gameObject.SetActive(false);
         playerAlive = true;
 
+        auraIconImage = GameObject.Find("Ability Icon - Aura").GetComponent<Image>();
         auraIconName = auraIconImage.transform.GetChild(0).GetComponent<Text>();
         auraIconKey = auraIconImage.transform.GetChild(1).GetComponent<Text>();
         auraIconCooldown = auraIconImage.transform.GetChild(2).GetComponent<Text>();
 
+        beamIconImage = GameObject.Find("Ability Icon - Beam").GetComponent<Image>();
         beamIconName = beamIconImage.transform.GetChild(0).GetComponent<Text>();
         beamIconKey = beamIconImage.transform.GetChild(1).GetComponent<Text>();
         beamIconCooldown = beamIconImage.transform.GetChild(2).GetComponent<Text>();
 
+        shieldIconImage = GameObject.Find("Ability Icon - Shield").GetComponent<Image>();
         shieldIconName = shieldIconImage.transform.GetChild(0).GetComponent<Text>();
         shieldIconKey = shieldIconImage.transform.GetChild(1).GetComponent<Text>();
         shieldIconCooldown = shieldIconImage.transform.GetChild(2).GetComponent<Text>();
