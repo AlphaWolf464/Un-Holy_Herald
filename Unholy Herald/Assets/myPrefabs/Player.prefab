@@ -1555,12 +1555,14 @@ MonoBehaviour:
   healthbars: {fileID: 0}
   spawner: {fileID: 0}
   turnTo: {fileID: 0}
+  hitbox: {fileID: 0}
   maxHealth: 100
   currentShieldHealth: 0
   FallenAngelDead: 0
   questOngoing: 0
   zoneMessage: {fileID: 0}
   zoneName: Zone 1
+  freezeTurn: 0
 --- !u!114 &2534295109156646166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,6 +1639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b1a60a1468d4245a5ca78529ff6636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUI: {fileID: 0}
 --- !u!1 &6419538270406215182
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
     [HideInInspector] public spawnAtVariblePoints spawner;//takes the script that provides variables to determin information about spawned entities
     private LocalZoneManagerScript zoneManager;//takes the script that provides data about global zone statuses
     [HideInInspector] public PlayerFaceMouseScript turnTo;//takes the script that turns the player to face the mouse
+    [HideInInspector] public PlayerHitboxTriggerScript hitbox;//takes the script that manages when the player gets hit
 
     public int maxHealth = 100;             //takes an int that will be the player's max health
     private float currentPlayerHealth;      //int that tracks player's current health
@@ -62,9 +63,11 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         ability = GameObject.FindWithTag("Player").GetComponent<PlayerAbilityScript>();
         zoneManager = GameObject.FindWithTag("MainCamera").GetComponentInParent<LocalZoneManagerScript>();
         turnTo = GameObject.FindWithTag("Player").GetComponent<PlayerFaceMouseScript>();
+        hitbox = GameObject.FindWithTag("Player").GetComponent<PlayerHitboxTriggerScript>();
 
         ability.enabled = true;
         turnTo.enabled = true;
+        hitbox.enabled = true;
 
         deathscreen = GameObject.Find("Deathscreen").GetComponent<Text>();
         deathscreen.enabled = false;
@@ -397,6 +400,8 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         transform.GetComponent<IsometricCharacterMoveScript>().enabled = true;
         ability.enabled = true;
         freezeTurn = false;
+        zoneText = "\nDefeat the Fallen Angel";
+        questLog.text = "Quest Log:\n" + zoneText;
         zoneManager.FinalBossSpawn();
     }
 

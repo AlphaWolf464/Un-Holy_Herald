@@ -11,6 +11,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public GameObject pauseMenu;
     private GameObject storyScreen;
+    private GameObject mapScreen;
     private bool isPaused;
 
     private void Start()
@@ -19,10 +20,12 @@ public class PauseMenuScript : MonoBehaviour
         turnTo = ability.playerUI.turnTo;
 
         storyScreen = pauseMenu.transform.GetChild(2).gameObject;
+        mapScreen = pauseMenu.transform.GetChild(3).gameObject;
 
         isPaused = false;
         pauseMenu.SetActive(false);
         storyScreen.SetActive(false);
+        mapScreen.SetActive(false);
     }
 
     private void Update()

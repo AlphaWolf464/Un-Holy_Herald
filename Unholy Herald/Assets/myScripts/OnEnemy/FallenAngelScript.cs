@@ -113,6 +113,7 @@ public class FallenAngelScript : MonoBehaviour
         }*/
         if (currentHealth <= 0)
         {
+            playerUI.hitbox.enabled = false;
             FallenAngelDeath();
         }
     }
