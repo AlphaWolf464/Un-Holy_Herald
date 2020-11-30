@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerFaceMouseScript : MonoBehaviour
 {
-    [HideInInspector] public PlayerUIScript playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
-
+    [HideInInspector] public PlayerUIScript playerUI;
     Ray cameraRay;
     RaycastHit cameraRayHit;
     Vector3 mousePosition;
+
+    void Start()
+    {
+        playerUI = GameObject.FindWithTag("Player").GetComponent<PlayerUIScript>();
+    }
 
     void Update()
     {

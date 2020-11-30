@@ -110,6 +110,7 @@ public class PlayerUIScript : MonoBehaviour //When placed on the player, manages
         SetCooldownText(shieldIconCooldown, ability.shieldCooldown);
 
         questLog = GameObject.Find("Quest Log").GetComponent<Text>();
+        questLog.color = new Color(10, 10, 10, 255);
         questOngoing = false;
         ResetQuestText();
 
